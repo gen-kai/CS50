@@ -82,14 +82,12 @@ int main(void)
 
 static bool IsDigitsOnly(char stringToCheck[])
 {
-	uint iterator = 0;
-	while (stringToCheck[iterator] != '\0')
+	for (uint iterator = 0; stringToCheck[iterator] != '\0'; iterator++)
 	{
 		if (stringToCheck[iterator] < '0' || stringToCheck[iterator] > '9')
 		{
 			return false;
 		}
-		iterator++;
 	}
 
 	return true;
