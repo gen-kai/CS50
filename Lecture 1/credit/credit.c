@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define uint unsigned int
+typedef unsigned int uint;
 
 #define NUMBER_LINE_MAX_SIZE 18
 /* 17th is a new line (\n), if 16 chars are entered; 18th is the null char (\0),
@@ -39,12 +39,12 @@ int main(void)
 
 	printf("Enter a credit card number: \n");
 	fgets(inputLine, NUMBER_LINE_MAX_SIZE, stdin);
-
-	isLessThan17 = 0;
+	
+	isLessThan17 = false;
 	int inputLineLength = strlen(inputLine);
 	if (inputLine[inputLineLength - 1] == '\n')
 	{
-		isLessThan17 = 1;
+		isLessThan17 = true;
 		inputLine[inputLineLength - 1] = 0;
 	}
 
@@ -54,17 +54,23 @@ int main(void)
 		scanf_s("%*c"); // clear up to newline
 	}
 
-	numberOfDigits = sprintf_s(cardNumber, "%s", NUMBER_LINE_MAX_SIZE, inputLine);
+	numberOfDigits = sprintf_s(cardNumber, NUMBER_LINE_MAX_SIZE, "%s", inputLine);
 
-	if (IsDigitsOnly(inputLine) && IsAmex(numberOfDigits, cardNumber) && IsChecksumValid(cardNumber))
+	if (!IsDigitsOnly(inputLine))
+	{
+		printf("INVALID\n");
+		return;
+	}
+
+	if (IsAmex(numberOfDigits, cardNumber) && IsChecksumValid(cardNumber))
 	{
 		printf("AMEX\n");
 	}
-	else if (IsDigitsOnly(inputLine) && IsMastercard(numberOfDigits, cardNumber) && IsChecksumValid(cardNumber))
+	else if (IsMastercard(numberOfDigits, cardNumber) && IsChecksumValid(cardNumber))
 	{
 		printf("MASTERCARD\n");
 	}
-	else if (IsDigitsOnly(inputLine) && IsVisa(numberOfDigits, cardNumber) && IsChecksumValid(cardNumber))
+	else if (IsVisa(numberOfDigits, cardNumber) && IsChecksumValid(cardNumber))
 	{
 		printf("VISA\n");
 	}
@@ -76,12 +82,13 @@ int main(void)
 
 static bool IsDigitsOnly(char* stringToCheck)
 {
-	for (; *stringToCheck < '0' || *stringToCheck > '9'; stringToCheck++)
+	while (*stringToCheck)
 	{
 		if (*stringToCheck < '0' || *stringToCheck > '9')
 		{
 			return false;
 		}
+		*stringToCheck++;
 	}
 
 	return true;

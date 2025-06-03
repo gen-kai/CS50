@@ -1,6 +1,7 @@
+#include <stdbool.h>
 #include <stdio.h>
 
-#define uint unsigned int
+typedef unsigned int uint;
 
 uint maxHeight;
 
@@ -42,6 +43,7 @@ static uint GetHeight()
 		{
 			scanf_s("%*[^\n]");
 			scanf_s("%*c"); //clear up to newline
+			continue;
 		}
 	}
 	while (sscanResult != 1 || maxHeight < 1 || maxHeight > 8);
