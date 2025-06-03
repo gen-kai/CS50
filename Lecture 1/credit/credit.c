@@ -24,7 +24,7 @@ static const uint MASTERCARD_SECOND_DIGIT[5] = { '1', '2', '3', '4', '5' };
 
 static const uint VISA_FIRST_DIGIT = '4';
 
-static bool IsDigitsOnly(char *stringToCheck);
+static bool IsDigitsOnly(char stringToCheck[]);
 static bool IsChecksumValid(char string[]);
 static bool IsAmex(uint numberOfDigits, char cardNumber[]);
 static bool IsMastercard(uint numberOfDigits, char cardNumber[]);
@@ -80,15 +80,16 @@ int main(void)
 	}
 }
 
-static bool IsDigitsOnly(char* stringToCheck)
+static bool IsDigitsOnly(char stringToCheck[])
 {
-	while (*stringToCheck)
+	uint iterator = 0;
+	while (stringToCheck[iterator] != '\0')
 	{
-		if (*stringToCheck < '0' || *stringToCheck > '9')
+		if (stringToCheck[iterator] < '0' || stringToCheck[iterator] > '9')
 		{
 			return false;
 		}
-		stringToCheck++;
+		iterator++;
 	}
 
 	return true;
