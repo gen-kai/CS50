@@ -88,7 +88,7 @@ static bool IsDigitsOnly(char* stringToCheck)
 		{
 			return false;
 		}
-		*stringToCheck++;
+		stringToCheck++;
 	}
 
 	return true;
