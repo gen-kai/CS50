@@ -6,8 +6,8 @@ typedef unsigned int uint;
 #define WORD_MAX_SIZE 31
 // 30 actual symbols, and a '\0' byte
 
-uint PromptForWord(char* enteredWord);
-uint CountScore(char* playerWord, uint wordLength);
+uint PromptForWord(char *enteredWord);
+uint CountScore(char *playerWord, uint wordLength);
 
 int main(void)
 {
@@ -40,7 +40,7 @@ int main(void)
 	}
 }
 
-uint PromptForWord(char* enteredWord)
+uint PromptForWord(char *enteredWord)
 {
 	char inputLine[WORD_MAX_SIZE];
 
@@ -68,7 +68,7 @@ uint PromptForWord(char* enteredWord)
 	return (uint) strlen(enteredWord);
 }
 
-uint CountScore(char* playerWord, uint wordLength)
+uint CountScore(char *playerWord, uint wordLength)
 {
 	uint playerScore = 0;
 
