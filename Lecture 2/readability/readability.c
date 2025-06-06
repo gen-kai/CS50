@@ -152,15 +152,15 @@ uint CountSentences(char *enteredText, uint enteredTextLength)
 
 float CalculateLettersPerHundredWords(uint letterCount, uint wordCount)
 {
-	return (float) letterCount / (float) wordCount * (float) 100.0;
+	return (float) letterCount / (float) wordCount * 100.0;
 }
 
 float CalculateSentencesPerHundredWords(uint wordCount, uint sentenceCount)
 {
-	return (float)sentenceCount / (float) wordCount * (float) 100.0;
+	return (float)sentenceCount / (float) wordCount * 100.0;
 }
 
 float CalculateTextComplexity(float lettersPerHundredWords, float sentencesPerHundredWords)
 {
-	return (0.0588 * lettersPerHundredWords) - (0.296 * sentencesPerHundredWords) - (float) 15.8;
+	return (0.0588 * lettersPerHundredWords) - (0.296 * sentencesPerHundredWords) - 15.8;
 }
