@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -55,7 +56,7 @@ uint PromptForWord(char *enteredWord)
 	else
 	{
 		scanf_s("%*[^\n]");
-		scanf_s("%*c"); // clear up to newline
+		scanf_s("%*c"); // clear up to new line
 	}
 
 	sprintf_s(enteredWord, WORD_MAX_SIZE, "%s", inputLine);
