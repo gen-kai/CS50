@@ -8,7 +8,7 @@ typedef unsigned int uint;
 
 #define TEXT_MAX_SIZE 2001
 
-uint PromptForText(char *enteredText);
+uint PromptForKey(char *enteredText);
 
 bool IsEndOfWord(char stringChar);
 bool IsEndOfSentence(char stringChar);
@@ -28,7 +28,7 @@ int main(void)
 	float lettersPerHundredWords, sentencesPerHundredWords;
 	float textComplexity;
 
-	enteredTextLength = PromptForText(enteredText);
+	enteredTextLength = PromptForKey(enteredText);
 
 	letterCount = CountLetters(enteredText, enteredTextLength);
 	wordCount = CountWords(enteredText, enteredTextLength);
@@ -53,7 +53,7 @@ int main(void)
 	}
 };
 
-uint PromptForText(char *enteredText)
+uint PromptForKey(char *enteredText)
 {
 	char inputLine[TEXT_MAX_SIZE];
 
