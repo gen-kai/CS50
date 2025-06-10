@@ -1,0 +1,27 @@
+6
+a
+b
+d
+c
+d
+b
+a
+c
+d
+a
+b
+c
+b
+a
+d
+c
+d
+a
+b
+c
+d
+b
+a
+c
+
+Answer: d (graph is the same for different sortings, a and b is tied pair, every vertex points at c, d poits at every other vertex)
