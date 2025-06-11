@@ -12,8 +12,6 @@ int preferences[MAX][MAX] = { {0} };
 // locked[i][j] means i is locked in over j
 bool locked[MAX][MAX];
 
-bool isCyclic = false;
-
 // Each pair has a winner, loser
 typedef struct
 {
@@ -36,7 +34,7 @@ void sort_pairs(void);
 bool isCurrentPreferenceStronger(int currentIndex, int maxStrengthIndex);
 void lock_pairs(void);
 void print_winner(void);
-bool DetectCycle(int i);
+bool DetectCycle(int pairIndex);
 bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* finishedVertices,
     int edgeCount);
 
@@ -210,7 +208,6 @@ void lock_pairs(void)
             if (DetectCycle(i))
             {
                 locked[pairs[i].winner][pairs[i].loser] = false;
-                isCyclic = false;
             }
             // if we created a cyclic graph with the most recent edge addition - remove that edge
             // and reset isCyclic var
@@ -220,15 +217,15 @@ void lock_pairs(void)
     return;
 }
 
-bool DetectCycle(int pairCount)
+bool DetectCycle(int pairIndex)
 {
     bool visitedVerites[MAX] = { false };
     bool finishedVertices[MAX] = { false };
 
-    int currentVertex = pairs[pairCount].loser;
+    int currentVertex = pairs[pairIndex].loser;
 
     return ModifiedDepthFirstSearch(currentVertex, &visitedVerites[0], &finishedVertices[0],
-        pairCount);
+        pairIndex + 1);
 }
 
 bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* finishedVertices,
@@ -254,7 +251,10 @@ bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* fin
     {
         if (pairs[i].winner == currentVertex)
         {
-            ModifiedDepthFirstSearch(pairs[i].loser, visitedVerites, finishedVertices, edgeCount);
+            if (ModifiedDepthFirstSearch(pairs[i].loser, visitedVerites, finishedVertices, edgeCount))
+            {
+                return true;
+            }
         }
     }
 
