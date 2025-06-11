@@ -38,7 +38,7 @@ void lock_pairs(void);
 void print_winner(void);
 bool DetectCycle(int i);
 bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* finishedVertices,
-    int vertexCount);
+    int edgeCount);
 
 int main(int argc, string argv[])
 {
@@ -228,11 +228,11 @@ bool DetectCycle(int pairCount)
     int currentVertex = pairs[pairCount].loser;
 
     return ModifiedDepthFirstSearch(currentVertex, &visitedVerites[0], &finishedVertices[0],
-        pairCount + 1);
+        pairCount);
 }
 
 bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* finishedVertices,
-    int vertexCount)
+    int edgeCount)
 {
     // function based on Depth-First Search algo that only check out-neighbors of the current vertex
     // it sets isCyclic to true if by checking out-neighbours it ends up checking the vertex that
@@ -250,11 +250,11 @@ bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* fin
 
     visitedVerites[currentVertex] = true;
 
-    for (int i = 0; i < vertexCount; i++)
+    for (int i = 0; i < edgeCount; i++)
     {
         if (pairs[i].winner == currentVertex)
         {
-            ModifiedDepthFirstSearch(pairs[i].loser, visitedVerites, finishedVertices, vertexCount);
+            ModifiedDepthFirstSearch(pairs[i].loser, visitedVerites, finishedVertices, edgeCount);
         }
     }
 
