@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 // Number of bytes in .wav header
 #define HEADER_SIZE 44
