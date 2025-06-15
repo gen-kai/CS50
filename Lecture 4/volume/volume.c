@@ -24,14 +24,14 @@ int main(int argc, char *argv[])
     }
 
     // Open files and determine scaling factor
-    FILE *input = fopen(argv[1], "r");
+    FILE *input = fopen(argv[1], "rb");
     if (input == NULL)
     {
         printf("Could not open file.\n");
         return 1;
     }
 
-    FILE *output = fopen(argv[2], "w");
+    FILE *output = fopen(argv[2], "wb");
     if (output == NULL)
     {
         printf("Could not open file.\n");
@@ -58,10 +58,12 @@ int main(int argc, char *argv[])
     if (errorCode != 0 && errorCode > dataSize)
     {
         printf("Could not read input sample %i.\n", errorCode - dataSize);
+        return 1;
     }
     else if (errorCode != 0 && errorCode < dataSize)
     {
         printf("Could not write output sample %i.\n", dataSize - errorCode);
+        return 1;
     }
 
     // Close files
@@ -110,7 +112,6 @@ uint changeVolume(FILE *input, FILE *output, uint dataSize, float changeFactor)
 
         if (fwrite(&inputSample, 1, SAMPLE_SIZE, output) < 1)
         {
-            printf("Could not copy output sample.\n");
             return dataSize - iterator;
         }
     }
