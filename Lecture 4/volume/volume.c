@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 // Number of bytes in .wav header
-#define HEADER_SIZE 44
-#define SAMPLE_SIZE 2
+#define HEADER_SIZE 44U
+#define SAMPLE_SIZE 2U
 
 typedef unsigned int uint;
 
