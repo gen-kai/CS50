@@ -27,15 +27,16 @@ int main(int argc, char *argv[])
     FILE *input = fopen(argv[1], "rb");
     if (input == NULL)
     {
-        printf("Could not open file.\n");
+        printf("Could not open input file.\n");
         return 1;
     }
 
     FILE *output = fopen(argv[2], "wb");
     if (output == NULL)
     {
-        printf("Could not open file.\n");
-        return 1;
+        printf("Could not open output file.\n");
+        fclose(input);
+        return 2;
     }
 
     float factor = atof(argv[3]);
@@ -48,6 +49,9 @@ int main(int argc, char *argv[])
     if (copyHeader(input, output) == 1)
     {
         printf("Could not copy header.\n");
+        fclose(input);
+        fclose(output);
+        return 3;
     }
 
     // Read samples from input file and write updated data to output file
@@ -58,12 +62,16 @@ int main(int argc, char *argv[])
     if (errorCode != 0 && errorCode > dataSize)
     {
         printf("Could not read input sample %i.\n", errorCode - dataSize);
-        return 1;
+        fclose(input);
+        fclose(output);
+        return 4;
     }
     else if (errorCode != 0 && errorCode < dataSize)
     {
         printf("Could not write output sample %i.\n", dataSize - errorCode);
-        return 1;
+        fclose(input);
+        fclose(output);
+        return 5;
     }
 
     // Close files
