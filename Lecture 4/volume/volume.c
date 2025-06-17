@@ -87,9 +87,9 @@ uint copyHeader(FILE *input, FILE *output)
 {
     char wavHeader[HEADER_SIZE];
 
-    fread(wavHeader, 1, HEADER_SIZE, input);
+    fread(wavHeader, HEADER_SIZE, 1, input);
 
-    if (fwrite(wavHeader, 1, HEADER_SIZE, output) < 1)
+    if (fwrite(wavHeader, HEADER_SIZE, 1, output) < 1)
     {
         return 1;
     }
@@ -103,14 +103,14 @@ uint changeVolume(FILE *input, FILE *output, uint dataSize, float changeFactor)
     {
         short inputSample;
 
-        if (fread(&inputSample, 1, SAMPLE_SIZE, input) < 1)
+        if (fread(&inputSample, SAMPLE_SIZE, 1, input) < 1)
         {
             return dataSize + iterator;
         }
 
         inputSample *= changeFactor;
 
-        if (fwrite(&inputSample, 1, SAMPLE_SIZE, output) < 1)
+        if (fwrite(&inputSample, SAMPLE_SIZE, 1, output) < 1)
         {
             return dataSize - iterator;
         }
