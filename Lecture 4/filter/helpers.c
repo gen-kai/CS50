@@ -64,7 +64,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     {
         for (uint widthIterator = 0; widthIterator < width; widthIterator++)
         {
-            RGBTRIPLE blurBox[3][3] = { {0} };
+            RGBTRIPLE blurBox[3][3] = {{0}};
 
             uint blurBoxHeightIteratorStart = 0;
             uint blurBoxMaxHeight = 2;
@@ -112,7 +112,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 neighbourPixelCount = 4;
             }
 
-            RGBTRIPLE resultingColors = { 0 };
+            RGBTRIPLE resultingColors = {0};
             uint resultingBlueSum = 0, resultingGreenSum = 0, resultingRedSum = 0;
 
             for (uint blurBoxHeightIterator = 0; blurBoxHeightIterator <= 2; blurBoxHeightIterator++)
@@ -125,9 +125,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
 
-            resultingColors.rgbtBlue = round(resultingBlueSum / (double)neighbourPixelCount);
-            resultingColors.rgbtGreen = round(resultingGreenSum / (double)neighbourPixelCount);
-            resultingColors.rgbtRed = round(resultingRedSum / (double)neighbourPixelCount);
+            resultingColors.rgbtBlue = round(resultingBlueSum / (double) neighbourPixelCount);
+            resultingColors.rgbtGreen = round(resultingGreenSum / (double) neighbourPixelCount);
+            resultingColors.rgbtRed = round(resultingRedSum / (double) neighbourPixelCount);
 
             resultingImage[heightIterator][widthIterator] = resultingColors;
         }
@@ -160,7 +160,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     {
         for (uint widthIterator = 0; widthIterator < width; widthIterator++)
         {
-            RGBTRIPLE edgeBox[3][3] = { {0} };
+            RGBTRIPLE edgeBox[3][3] = {{0}};
 
             uint edgeBoxHeightIteratorStart = 0;
             uint edgeBoxMaxHeight = 2;
@@ -193,15 +193,15 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
 
-            int xKernel[3][3] = { {-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1} };
-            int yKernel[3][3] = { {-1, -2, -1}, {0, 0, 0}, {1, 2, 1} };
+            int xKernel[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
+            int yKernel[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
             int resultingXBlueSum = 0, resultingXGreenSum = 0, resultingXRedSum = 0;
             int resultingYBlueSum = 0, resultingYGreenSum = 0, resultingYRedSum = 0;
 
             uint resultingBlueColor = 0, resultingGreenColor = 0, resultingRedColor = 0;
 
-            RGBTRIPLE resultingColors = { 0 };
+            RGBTRIPLE resultingColors = {0};
 
             for (uint edgeBoxHeightIterator = 0; edgeBoxHeightIterator <= 2; edgeBoxHeightIterator++)
             {
