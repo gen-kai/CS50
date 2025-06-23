@@ -8,11 +8,11 @@
 #define HEADER_SIZE 44U
 #define SAMPLE_SIZE 2U
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 
-uint getFileSize(FILE *input);
-uint copyHeader(FILE *input, FILE *output);
-uint changeVolume(FILE *input, FILE *output, uint dataSize, float changeFactor);
+u_int getFileSize(FILE *input);
+u_int copyHeader(FILE *input, FILE *output);
+u_int changeVolume(FILE *input, FILE *output, u_int dataSize, float changeFactor);
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     // Check file size
 
-    uint fileSize = getFileSize(input);
+    u_int fileSize = getFileSize(input);
 
     // Copy header from input file to output file
     if (copyHeader(input, output) == 1)
@@ -55,9 +55,9 @@ int main(int argc, char *argv[])
     }
 
     // Read samples from input file and write updated data to output file
-    uint dataSize = fileSize - HEADER_SIZE;
+    u_int dataSize = fileSize - HEADER_SIZE;
 
-    uint errorCode = changeVolume(input, output, dataSize, factor);
+    u_int errorCode = changeVolume(input, output, dataSize, factor);
 
     if (errorCode != 0 && errorCode > dataSize)
     {
@@ -81,17 +81,17 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-uint getFileSize(FILE *input)
+u_int getFileSize(FILE *input)
 {
     fseek(input, 0, SEEK_END);
-    uint fileSize = ftell(input);
+    u_int fileSize = ftell(input);
 
     rewind(input);
 
     return fileSize;
 }
 
-uint copyHeader(FILE *input, FILE *output)
+u_int copyHeader(FILE *input, FILE *output)
 {
     char wavHeader[HEADER_SIZE];
 
@@ -105,9 +105,9 @@ uint copyHeader(FILE *input, FILE *output)
     return 0;
 }
 
-uint changeVolume(FILE *input, FILE *output, uint dataSize, float changeFactor)
+u_int changeVolume(FILE *input, FILE *output, u_int dataSize, float changeFactor)
 {
-    for (uint iterator = 0; iterator < dataSize / 2; iterator++)
+    for (u_int iterator = 0; iterator < dataSize / 2; iterator++)
     {
         short inputSample;
 

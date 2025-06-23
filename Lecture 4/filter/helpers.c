@@ -3,13 +3,13 @@
 
 #include "helpers.h"
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
-    for (uint heightIterator = 0; heightIterator < height; heightIterator++)
+    for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             RGBTRIPLE currentPixel = image[heightIterator][widthIterator];
 
@@ -32,14 +32,14 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
         return;
     }
 
-    for (uint heightIterator = 0; heightIterator < height; heightIterator++)
+    for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             resultingLine[widthIterator] = image[heightIterator][width - widthIterator - 1];
         }
 
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             image[heightIterator][widthIterator] = resultingLine[widthIterator];
         }
@@ -60,17 +60,17 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         return;
     }
 
-    for (uint heightIterator = 0; heightIterator < height; heightIterator++)
+    for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             RGBTRIPLE blurBox[3][3] = {{0}};
 
-            uint blurBoxHeightIteratorStart = 0;
-            uint blurBoxMaxHeight = 2;
+            u_int blurBoxHeightIteratorStart = 0;
+            u_int blurBoxMaxHeight = 2;
 
-            uint blurBoxWidthIteratorStart = 0;
-            uint blurBoxMaxWidth = 2;
+            u_int blurBoxWidthIteratorStart = 0;
+            u_int blurBoxMaxWidth = 2;
 
             if (heightIterator == 0)
             {
@@ -89,15 +89,15 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 blurBoxMaxWidth = 1;
             }
 
-            for (uint blurBoxHeightIterator = blurBoxHeightIteratorStart; blurBoxHeightIterator <= blurBoxMaxHeight; blurBoxHeightIterator++)
+            for (u_int blurBoxHeightIterator = blurBoxHeightIteratorStart; blurBoxHeightIterator <= blurBoxMaxHeight; blurBoxHeightIterator++)
             {
-                for (uint blurBoxWidthIterator = blurBoxWidthIteratorStart; blurBoxWidthIterator <= blurBoxMaxWidth; blurBoxWidthIterator++)
+                for (u_int blurBoxWidthIterator = blurBoxWidthIteratorStart; blurBoxWidthIterator <= blurBoxMaxWidth; blurBoxWidthIterator++)
                 {
                     blurBox[blurBoxHeightIterator][blurBoxWidthIterator] = image[heightIterator + blurBoxHeightIterator - 1][widthIterator + blurBoxWidthIterator - 1];
                 }
             }
 
-            uint neighbourPixelCount = 9;
+            u_int neighbourPixelCount = 9;
 
             if ((heightIterator == 0 || heightIterator == height - 1) && !(widthIterator == 0 || widthIterator == width - 1))
             {
@@ -113,11 +113,11 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             }
 
             RGBTRIPLE resultingColors = {0};
-            uint resultingBlueSum = 0, resultingGreenSum = 0, resultingRedSum = 0;
+            u_int resultingBlueSum = 0, resultingGreenSum = 0, resultingRedSum = 0;
 
-            for (uint blurBoxHeightIterator = 0; blurBoxHeightIterator <= 2; blurBoxHeightIterator++)
+            for (u_int blurBoxHeightIterator = 0; blurBoxHeightIterator <= 2; blurBoxHeightIterator++)
             {
-                for (uint blurBoxWidthIterator = 0; blurBoxWidthIterator <= 2; blurBoxWidthIterator++)
+                for (u_int blurBoxWidthIterator = 0; blurBoxWidthIterator <= 2; blurBoxWidthIterator++)
                 {
                     resultingBlueSum += blurBox[blurBoxHeightIterator][blurBoxWidthIterator].rgbtBlue;
                     resultingGreenSum += blurBox[blurBoxHeightIterator][blurBoxWidthIterator].rgbtGreen;
@@ -133,9 +133,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         }
     }
 
-    for (uint heightIterator = 0; heightIterator < height; heightIterator++)
+    for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             image[heightIterator][widthIterator] = resultingImage[heightIterator][widthIterator];
         }
@@ -156,17 +156,17 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         return;
     }
 
-    for (uint heightIterator = 0; heightIterator < height; heightIterator++)
+    for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             RGBTRIPLE edgeBox[3][3] = {{0}};
 
-            uint edgeBoxHeightIteratorStart = 0;
-            uint edgeBoxMaxHeight = 2;
+            u_int edgeBoxHeightIteratorStart = 0;
+            u_int edgeBoxMaxHeight = 2;
 
-            uint edgeBoxWidthIteratorStart = 0;
-            uint edgeBoxMaxWidth = 2;
+            u_int edgeBoxWidthIteratorStart = 0;
+            u_int edgeBoxMaxWidth = 2;
 
             if (heightIterator == 0)
             {
@@ -185,9 +185,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 edgeBoxMaxWidth = 1;
             }
 
-            for (uint edgeBoxHeightIterator = edgeBoxHeightIteratorStart; edgeBoxHeightIterator <= edgeBoxMaxHeight; edgeBoxHeightIterator++)
+            for (u_int edgeBoxHeightIterator = edgeBoxHeightIteratorStart; edgeBoxHeightIterator <= edgeBoxMaxHeight; edgeBoxHeightIterator++)
             {
-                for (uint edgeBoxWidthIterator = edgeBoxWidthIteratorStart; edgeBoxWidthIterator <= edgeBoxMaxWidth; edgeBoxWidthIterator++)
+                for (u_int edgeBoxWidthIterator = edgeBoxWidthIteratorStart; edgeBoxWidthIterator <= edgeBoxMaxWidth; edgeBoxWidthIterator++)
                 {
                     edgeBox[edgeBoxHeightIterator][edgeBoxWidthIterator] = image[heightIterator + edgeBoxHeightIterator - 1][widthIterator + edgeBoxWidthIterator - 1];
                 }
@@ -199,13 +199,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             int resultingXBlueSum = 0, resultingXGreenSum = 0, resultingXRedSum = 0;
             int resultingYBlueSum = 0, resultingYGreenSum = 0, resultingYRedSum = 0;
 
-            uint resultingBlueColor = 0, resultingGreenColor = 0, resultingRedColor = 0;
+            u_int resultingBlueColor = 0, resultingGreenColor = 0, resultingRedColor = 0;
 
             RGBTRIPLE resultingColors = {0};
 
-            for (uint edgeBoxHeightIterator = 0; edgeBoxHeightIterator <= 2; edgeBoxHeightIterator++)
+            for (u_int edgeBoxHeightIterator = 0; edgeBoxHeightIterator <= 2; edgeBoxHeightIterator++)
             {
-                for (uint edgeBoxWidthIterator = 0; edgeBoxWidthIterator <= 2; edgeBoxWidthIterator++)
+                for (u_int edgeBoxWidthIterator = 0; edgeBoxWidthIterator <= 2; edgeBoxWidthIterator++)
                 {
                     resultingXBlueSum += xKernel[edgeBoxHeightIterator][edgeBoxWidthIterator] * edgeBox[edgeBoxHeightIterator][edgeBoxWidthIterator].rgbtBlue;
                     resultingXGreenSum += xKernel[edgeBoxHeightIterator][edgeBoxWidthIterator] * edgeBox[edgeBoxHeightIterator][edgeBoxWidthIterator].rgbtGreen;
@@ -252,9 +252,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         }
     }
 
-    for (uint heightIterator = 0; heightIterator < height; heightIterator++)
+    for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
-        for (uint widthIterator = 0; widthIterator < width; widthIterator++)
+        for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
         {
             image[heightIterator][widthIterator] = resultingImage[heightIterator][widthIterator];
         }
