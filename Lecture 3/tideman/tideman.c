@@ -7,7 +7,7 @@
 #define MAX 9
 
 // preferences[i][j] is number of voters who prefer i over j
-int preferences[MAX][MAX] = { {0} };
+int preferences[MAX][MAX] = {{0}};
 
 // locked[i][j] means i is locked in over j
 bool locked[MAX][MAX];
@@ -35,8 +35,8 @@ bool isCurrentPreferenceStronger(int currentIndex, int maxStrengthIndex);
 void lock_pairs(void);
 void print_winner(void);
 bool DetectCycle(int pairIndex);
-bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* finishedVertices,
-    int edgeCount);
+bool ModifiedDepthFirstSearch(int currentVertex, bool *visitedVerites, bool *finishedVertices,
+                              int edgeCount);
 
 int main(int argc, string argv[])
 {
@@ -219,17 +219,17 @@ void lock_pairs(void)
 
 bool DetectCycle(int pairIndex)
 {
-    bool visitedVerites[MAX] = { false };
-    bool finishedVertices[MAX] = { false };
+    bool visitedVerites[MAX] = {false};
+    bool finishedVertices[MAX] = {false};
 
     int currentVertex = pairs[pairIndex].loser;
 
     return ModifiedDepthFirstSearch(currentVertex, &visitedVerites[0], &finishedVertices[0],
-        pairIndex + 1);
+                                    pairIndex + 1);
 }
 
-bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* finishedVertices,
-    int edgeCount)
+bool ModifiedDepthFirstSearch(int currentVertex, bool *visitedVerites, bool *finishedVertices,
+                              int edgeCount)
 {
     // function based on Depth-First Search algo that only check out-neighbors of the current vertex
     // it sets isCyclic to true if by checking out-neighbours it ends up checking the vertex that
@@ -266,7 +266,7 @@ bool ModifiedDepthFirstSearch(int currentVertex, bool* visitedVerites, bool* fin
 // Print the winner of the election
 void print_winner(void)
 {
-    bool electionWinners[MAX] = { false };
+    bool electionWinners[MAX] = {false};
 
     for (int i = 0; i < pair_count; i++)
     {
