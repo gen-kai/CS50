@@ -1,13 +1,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 
-uint maxHeight;
+u_int maxHeight;
 
-static uint GetHeight();
-static void PrintChar(char characterToPrint, uint timesToPrint);
-static void PrintPyramid(uint maxHeight);
+static u_int GetHeight();
+static void PrintChar(char characterToPrint, u_int timesToPrint);
+static void PrintPyramid(u_int maxHeight);
 
 int main(void)
 {
@@ -16,7 +16,7 @@ int main(void)
 	PrintPyramid(maxHeight);
 }
 
-static uint GetHeight()
+static u_int GetHeight()
 {
 	int sscanResult;
 	char inputLine[3];
@@ -51,21 +51,21 @@ static uint GetHeight()
 	return maxHeight;
 }
 
-static void PrintChar(char characterToPrint, uint timesToPrint)
+static void PrintChar(char characterToPrint, u_int timesToPrint)
 {
 	if (timesToPrint == 0)
 	{
 		return;
 	}
-	for (uint i = 0; i < timesToPrint; i++)
+	for (u_int i = 0; i < timesToPrint; i++)
 	{
 		printf("%c", characterToPrint);
 	}
 }
 
-static void PrintPyramid(uint maxHeight)
+static void PrintPyramid(u_int maxHeight)
 {
-	for (uint currentHeight = 0; currentHeight < maxHeight; currentHeight++)
+	for (u_int currentHeight = 0; currentHeight < maxHeight; currentHeight++)
 	{
 		PrintChar(' ', maxHeight - currentHeight - 1);
 		/* print (maxHeight - currentHeight - 1) spaces,

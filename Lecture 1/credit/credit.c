@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 
 #define NUMBER_LINE_MAX_SIZE 18
 /* 17th is a new line (\n), if 16 chars are entered; 18th is the null char (\0),
@@ -11,35 +11,35 @@ which is added automatically by fgets() as strings in C should be null-terminate
 Which means if we read only 16 chars, the last char will be \0
 and any input will be discarded by the next if statement */
 
-static const uint AMEX_LENGTH = 15;
-static const uint MASTERCARD_LENGTH = 16;
-static const uint VISA_LENGTH_1 = 13;
-static const uint VISA_LENGTH_2 = 16;
+static const u_int AMEX_LENGTH = 15;
+static const u_int MASTERCARD_LENGTH = 16;
+static const u_int VISA_LENGTH_1 = 13;
+static const u_int VISA_LENGTH_2 = 16;
 
-static const uint AMEX_FIRST_DIGIT = '3';
-static const uint AMEX_SECOND_DIGIT = '7';
+static const u_int AMEX_FIRST_DIGIT = '3';
+static const u_int AMEX_SECOND_DIGIT = '7';
 
-static const uint MASTERCARD_FIRST_DIGIT = '5';
-static const uint MASTERCARD_SECOND_DIGIT[5] = { '1', '2', '3', '4', '5' };
+static const u_int MASTERCARD_FIRST_DIGIT = '5';
+static const u_int MASTERCARD_SECOND_DIGIT[5] = {'1', '2', '3', '4', '5'};
 
-static const uint VISA_FIRST_DIGIT = '4';
+static const u_int VISA_FIRST_DIGIT = '4';
 
 static bool IsDigitsOnly(char stringToCheck[]);
 static bool IsChecksumValid(char string[]);
-static bool IsAmex(uint numberOfDigits, char cardNumber[]);
-static bool IsMastercard(uint numberOfDigits, char cardNumber[]);
-static bool IsVisa(uint numberOfDigits, char cardNumber[]);
+static bool IsAmex(u_int numberOfDigits, char cardNumber[]);
+static bool IsMastercard(u_int numberOfDigits, char cardNumber[]);
+static bool IsVisa(u_int numberOfDigits, char cardNumber[]);
 
 int main(void)
 {
-	char inputLine[NUMBER_LINE_MAX_SIZE] = { 0 };
+	char inputLine[NUMBER_LINE_MAX_SIZE] = {0};
 	bool isLessThan17;
-	uint numberOfDigits = 0;
-	char cardNumber[NUMBER_LINE_MAX_SIZE] = { 0 };
+	u_int numberOfDigits = 0;
+	char cardNumber[NUMBER_LINE_MAX_SIZE] = {0};
 
 	printf("Enter a credit card number: \n");
 	fgets(inputLine, NUMBER_LINE_MAX_SIZE, stdin);
-	
+
 	isLessThan17 = false;
 	int inputLineLength = strlen(inputLine);
 	if (inputLine[inputLineLength - 1] == '\n')
@@ -82,7 +82,7 @@ int main(void)
 
 static bool IsDigitsOnly(char stringToCheck[])
 {
-	for (uint iterator = 0; stringToCheck[iterator] != '\0'; iterator++)
+	for (u_int iterator = 0; stringToCheck[iterator] != '\0'; iterator++)
 	{
 		if (stringToCheck[iterator] < '0' || stringToCheck[iterator] > '9')
 		{
@@ -95,13 +95,13 @@ static bool IsDigitsOnly(char stringToCheck[])
 
 static bool IsChecksumValid(char stringToCheck[])
 {
-	uint stringLength = 0, stringChecksum = 0;
+	u_int stringLength = 0, stringChecksum = 0;
 
 	stringLength = strlen(stringToCheck);
 
-	for (uint iterator = 0; iterator < stringLength - 1; iterator += 2)
+	for (u_int iterator = 0; iterator < stringLength - 1; iterator += 2)
 	{
-		uint currentNumber = (stringToCheck[(stringLength - 2) - iterator] - '0') * 2;
+		u_int currentNumber = (stringToCheck[(stringLength - 2) - iterator] - '0') * 2;
 		while (currentNumber != 0)
 		{
 			stringChecksum = stringChecksum + (currentNumber % 10);
@@ -109,7 +109,7 @@ static bool IsChecksumValid(char stringToCheck[])
 		}
 	}
 
-	for (uint iterator = 0; iterator < stringLength; iterator += 2)
+	for (u_int iterator = 0; iterator < stringLength; iterator += 2)
 	{
 		stringChecksum += (stringToCheck[(stringLength - 1) - iterator] - '0');
 	}
@@ -122,7 +122,7 @@ static bool IsChecksumValid(char stringToCheck[])
 	return false;
 }
 
-static bool IsAmex(uint numberOfDigits, char cardNumber[])
+static bool IsAmex(u_int numberOfDigits, char cardNumber[])
 {
 	if (numberOfDigits == AMEX_LENGTH
 		&& (cardNumber[0] == AMEX_FIRST_DIGIT
@@ -133,7 +133,7 @@ static bool IsAmex(uint numberOfDigits, char cardNumber[])
 	return false;
 }
 
-static bool IsMastercard(uint numberOfDigits, char cardNumber[])
+static bool IsMastercard(u_int numberOfDigits, char cardNumber[])
 {
 	if (numberOfDigits == MASTERCARD_LENGTH
 		&& (cardNumber[0] == MASTERCARD_FIRST_DIGIT
@@ -148,10 +148,10 @@ static bool IsMastercard(uint numberOfDigits, char cardNumber[])
 	return false;
 }
 
-static bool IsVisa(uint numberOfDigits, char cardNumber[])
+static bool IsVisa(u_int numberOfDigits, char cardNumber[])
 {
 	if ((numberOfDigits == VISA_LENGTH_1
-		|| numberOfDigits == VISA_LENGTH_2)
+		 || numberOfDigits == VISA_LENGTH_2)
 		&& cardNumber[0] == VISA_FIRST_DIGIT)
 	{
 		return true;
