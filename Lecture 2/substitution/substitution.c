@@ -4,25 +4,25 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 
 #define KEY_MAX_SIZE 28
 #define TEXT_MAX_SIZE 2001
 #define ALPHABET_SIZE 26
 
-bool IsOnlyLetters(char *enteredKey, uint enteredKeyLength);
-void ConvertToUpper(char *enteredKey, uint enteredKeyLength);
-uint PromptForText(char *enteredText);
-bool AreLettersUnique(char *enteredKey, uint enteredKeyLength);
-void EncryptText(char *enteredText, uint enteredTextLength, char *enteredKey, char *encryptedText);
+bool IsOnlyLetters(char *enteredKey, u_int enteredKeyLength);
+void ConvertToUpper(char *enteredKey, u_int enteredKeyLength);
+u_int PromptForText(char *enteredText);
+bool AreLettersUnique(char *enteredKey, u_int enteredKeyLength);
+void EncryptText(char *enteredText, u_int enteredTextLength, char *enteredKey, char *encryptedText);
 
 int main(int argc, char *argv[])
 {
 	char *enteredKey = malloc(KEY_MAX_SIZE * sizeof(char));
-	uint enteredKeyLength;
+	u_int enteredKeyLength;
 
 	char enteredText[TEXT_MAX_SIZE];
-	uint enteredTextLength;
+	u_int enteredTextLength;
 
 	char encryptedText[TEXT_MAX_SIZE];
 
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 	}
 
 	memcpy(enteredKey, argv[1], KEY_MAX_SIZE);
-	enteredKeyLength = (uint) strlen(enteredKey);
+	enteredKeyLength = (u_int) strlen(enteredKey);
 
 	if (enteredKeyLength != 26)
 	{
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	if (!AreLettersUnique(enteredKey, enteredKeyLength))
 	{
 		printf("All letters in the key must be unique!\n");
-		
+
 		free(enteredKey);
 		enteredKey = NULL;
 
@@ -77,9 +77,9 @@ int main(int argc, char *argv[])
 	printf("ciphertext: %s\n", encryptedText);
 }
 
-bool IsOnlyLetters(char *enteredKey, uint enteredKeyLength)
+bool IsOnlyLetters(char *enteredKey, u_int enteredKeyLength)
 {
-	for (uint iterator = 0; iterator < enteredKeyLength; iterator++)
+	for (u_int iterator = 0; iterator < enteredKeyLength; iterator++)
 	{
 		if (!isalpha(enteredKey[iterator]))
 		{
@@ -90,15 +90,15 @@ bool IsOnlyLetters(char *enteredKey, uint enteredKeyLength)
 	return true;
 }
 
-void ConvertToUpper(char *enteredKey, uint enteredKeyLength)
+void ConvertToUpper(char *enteredKey, u_int enteredKeyLength)
 {
-	for (uint iterator = 0; iterator < enteredKeyLength; iterator++)
+	for (u_int iterator = 0; iterator < enteredKeyLength; iterator++)
 	{
 		enteredKey[iterator] = toupper(enteredKey[iterator]);
 	}
 }
 
-uint PromptForText(char *enteredText)
+u_int PromptForText(char *enteredText)
 {
 	char inputLine[TEXT_MAX_SIZE];
 
@@ -106,7 +106,7 @@ uint PromptForText(char *enteredText)
 
 	fgets(inputLine, TEXT_MAX_SIZE, stdin);
 
-	uint inputLineLength = (uint) strlen(inputLine);
+	u_int inputLineLength = (u_int) strlen(inputLine);
 
 	if (inputLine[inputLineLength - 1] == '\n')
 	{
@@ -120,14 +120,14 @@ uint PromptForText(char *enteredText)
 
 	sprintf_s(enteredText, TEXT_MAX_SIZE, "%s", inputLine);
 
-	return (uint)strlen(enteredText);
+	return (u_int) strlen(enteredText);
 }
 
-bool AreLettersUnique(char *enteredKey, uint enteredKeyLength)
+bool AreLettersUnique(char *enteredKey, u_int enteredKeyLength)
 {
-	uint letterOccurances[ALPHABET_SIZE] = {0};
+	u_int letterOccurances[ALPHABET_SIZE] = {0};
 
-	for (uint iterator = 0; iterator < enteredKeyLength; iterator++)
+	for (u_int iterator = 0; iterator < enteredKeyLength; iterator++)
 	{
 		char currentLetter = enteredKey[iterator];
 
@@ -137,7 +137,7 @@ bool AreLettersUnique(char *enteredKey, uint enteredKeyLength)
 		}
 	}
 
-	for (uint iterator = 0; iterator < ALPHABET_SIZE; iterator++)
+	for (u_int iterator = 0; iterator < ALPHABET_SIZE; iterator++)
 	{
 		if (letterOccurances[iterator] != 1)
 		{
@@ -148,9 +148,9 @@ bool AreLettersUnique(char *enteredKey, uint enteredKeyLength)
 	return true;
 }
 
-void EncryptText(char *enteredText, uint enteredTextLength, char *enteredKey, char *encryptedText)
+void EncryptText(char *enteredText, u_int enteredTextLength, char *enteredKey, char *encryptedText)
 {
-	for (uint iterator = 0; iterator < enteredTextLength; iterator++)
+	for (u_int iterator = 0; iterator < enteredTextLength; iterator++)
 	{
 		if (isalpha(enteredText[iterator]))
 		{

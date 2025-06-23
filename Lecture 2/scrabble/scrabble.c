@@ -2,19 +2,19 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 
 #define WORD_MAX_SIZE 31
 // 30 actual symbols, and a '\0' byte
 
-uint PromptForWord(char *enteredWord);
-uint CountScore(char *playerWord, uint wordLength);
+u_int PromptForWord(char *enteredWord);
+u_int CountScore(char *playerWord, u_int wordLength);
 
 int main(void)
 {
 	char firstPlayerWord[WORD_MAX_SIZE], secondPlayerWord[WORD_MAX_SIZE];
-	uint firstPlayerWordLength, secondPlayerWordLength;
-	uint firstPlayerScore, secondPlayerScore;
+	u_int firstPlayerWordLength, secondPlayerWordLength;
+	u_int firstPlayerScore, secondPlayerScore;
 
 	printf("Player 1: ");
 	firstPlayerWordLength = PromptForWord(firstPlayerWord);
@@ -41,13 +41,13 @@ int main(void)
 	}
 }
 
-uint PromptForWord(char *enteredWord)
+u_int PromptForWord(char *enteredWord)
 {
 	char inputLine[WORD_MAX_SIZE];
 
 	fgets(inputLine, WORD_MAX_SIZE, stdin);
 
-	uint inputLineLength = (uint) strlen(inputLine);
+	u_int inputLineLength = (u_int) strlen(inputLine);
 
 	if (inputLine[inputLineLength - 1] == '\n')
 	{
@@ -61,25 +61,25 @@ uint PromptForWord(char *enteredWord)
 
 	sprintf_s(enteredWord, WORD_MAX_SIZE, "%s", inputLine);
 
-	for (uint iterator = 0; enteredWord[iterator] != '\0'; iterator++)
+	for (u_int iterator = 0; enteredWord[iterator] != '\0'; iterator++)
 	{
 		enteredWord[iterator] = toupper(enteredWord[iterator]);
 	}
 
-	return (uint) strlen(enteredWord);
+	return (u_int) strlen(enteredWord);
 }
 
-uint CountScore(char *playerWord, uint wordLength)
+u_int CountScore(char *playerWord, u_int wordLength)
 {
-	uint playerScore = 0;
+	u_int playerScore = 0;
 
-	for (uint iterator = 0; iterator < wordLength; iterator++)
+	for (u_int iterator = 0; iterator < wordLength; iterator++)
 	{
 		if (!(playerWord[iterator] >= 'A' && playerWord[iterator] <= 'Z'))
 		{
 			continue;
 		}
-		
+
 		switch (playerWord[iterator])
 		{
 			case 'A':

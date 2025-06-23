@@ -4,27 +4,27 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef unsigned int uint;
+typedef unsigned int u_int;
 
 #define TEXT_MAX_SIZE 2001
 
-uint PromptForText(char *enteredText);
+u_int PromptForText(char *enteredText);
 
 bool IsEndOfWord(char stringChar);
 bool IsEndOfSentence(char stringChar);
 
-uint CountWords(char *enteredText, uint enteredTextLength);
-uint CountSentences(char *enteredText, uint enteredTextLength);
-uint CountLetters(char *enteredText, uint enteredTextLength);
-float CalculateLettersPerHundredWords(uint letterCount, uint wordCount);
-float CalculateSentencesPerHundredWords(uint wordCount, uint sentenceCount);
+u_int CountWords(char *enteredText, u_int enteredTextLength);
+u_int CountSentences(char *enteredText, u_int enteredTextLength);
+u_int CountLetters(char *enteredText, u_int enteredTextLength);
+float CalculateLettersPerHundredWords(u_int letterCount, u_int wordCount);
+float CalculateSentencesPerHundredWords(u_int wordCount, u_int sentenceCount);
 float CalculateTextComplexity(float lettersPerHundredWords, float sentencesPerHundredWords);
 
 int main(void)
 {
 	char enteredText[TEXT_MAX_SIZE];
-	uint enteredTextLength;
-	uint letterCount, wordCount, sentenceCount;
+	u_int enteredTextLength;
+	u_int letterCount, wordCount, sentenceCount;
 	float lettersPerHundredWords, sentencesPerHundredWords;
 	float textComplexity;
 
@@ -49,11 +49,11 @@ int main(void)
 	}
 	else
 	{
-		printf("Grade %d\n", (uint) round(textComplexity));
+		printf("Grade %d\n", (u_int) round(textComplexity));
 	}
 };
 
-uint PromptForText(char *enteredText)
+u_int PromptForText(char *enteredText)
 {
 	char inputLine[TEXT_MAX_SIZE];
 
@@ -61,7 +61,7 @@ uint PromptForText(char *enteredText)
 
 	fgets(inputLine, TEXT_MAX_SIZE, stdin);
 
-	uint inputLineLength = (uint) strlen(inputLine);
+	u_int inputLineLength = (u_int) strlen(inputLine);
 
 	if (inputLine[inputLineLength - 1] == '\n')
 	{
@@ -75,7 +75,7 @@ uint PromptForText(char *enteredText)
 
 	sprintf_s(enteredText, TEXT_MAX_SIZE, "%s", inputLine);
 
-	return (uint) strlen(enteredText);
+	return (u_int) strlen(enteredText);
 }
 
 bool IsEndOfWord(char stringChar)
@@ -101,11 +101,11 @@ bool IsEndOfSentence(char stringChar)
 	return isPeriod || isExclamationMark || isQuestionMark;
 }
 
-uint CountLetters(char *enteredText, uint enteredTextLength)
+u_int CountLetters(char *enteredText, u_int enteredTextLength)
 {
-	uint letterCount = 0;
+	u_int letterCount = 0;
 
-	for (uint iterator = 0; iterator < enteredTextLength; iterator++)
+	for (u_int iterator = 0; iterator < enteredTextLength; iterator++)
 	{
 		if (isalpha(enteredText[iterator]))
 		{
@@ -116,14 +116,14 @@ uint CountLetters(char *enteredText, uint enteredTextLength)
 	return letterCount;
 }
 
-uint CountWords(char *enteredText, uint enteredTextLength)
+u_int CountWords(char *enteredText, u_int enteredTextLength)
 {
-	uint wordCount = 0;
+	u_int wordCount = 0;
 
-	for (uint iterator = 0; iterator < enteredTextLength - 1; iterator++)
+	for (u_int iterator = 0; iterator < enteredTextLength - 1; iterator++)
 	{
-		if(IsEndOfWord(enteredText[iterator]) && enteredText[iterator + 1] == ' ')
-		// "a ", ", ", ". ", "! ", "? ", "\" "
+		if (IsEndOfWord(enteredText[iterator]) && enteredText[iterator + 1] == ' ')
+			// "a ", ", ", ". ", "! ", "? ", "\" "
 		{
 			wordCount += 1;
 		}
@@ -133,14 +133,14 @@ uint CountWords(char *enteredText, uint enteredTextLength)
 	// because this method won't count the last word
 }
 
-uint CountSentences(char *enteredText, uint enteredTextLength)
+u_int CountSentences(char *enteredText, u_int enteredTextLength)
 {
-	uint sentenceCount = 0;
+	u_int sentenceCount = 0;
 
-	for (uint iterator = 0; iterator < enteredTextLength - 1; iterator++)
+	for (u_int iterator = 0; iterator < enteredTextLength - 1; iterator++)
 	{
 		if (IsEndOfSentence(enteredText[iterator]) && enteredText[iterator + 1] == ' ')
-		// ". ", "! ", "? "
+			// ". ", "! ", "? "
 		{
 			sentenceCount += 1;
 		}
@@ -150,14 +150,14 @@ uint CountSentences(char *enteredText, uint enteredTextLength)
 	// because this method won't count the last sentence
 }
 
-float CalculateLettersPerHundredWords(uint letterCount, uint wordCount)
+float CalculateLettersPerHundredWords(u_int letterCount, u_int wordCount)
 {
 	return (float) letterCount / (float) wordCount * 100.0;
 }
 
-float CalculateSentencesPerHundredWords(uint wordCount, uint sentenceCount)
+float CalculateSentencesPerHundredWords(u_int wordCount, u_int sentenceCount)
 {
-	return (float)sentenceCount / (float) wordCount * 100.0;
+	return (float) sentenceCount / (float) wordCount * 100.0;
 }
 
 float CalculateTextComplexity(float lettersPerHundredWords, float sentencesPerHundredWords)
