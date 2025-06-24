@@ -71,7 +71,7 @@ int main(int argCount, char *p_argValues[])
         {
             char recoveredJpegName[8];
 
-            if (sprintf_s(recoveredJpegName, 8, "%03d.jpg", fileCount) != 7)
+            if (sprintf(recoveredJpegName, "%03d.jpg", fileCount) != 7)
             {
                 fclose(p_inputImage);
 
