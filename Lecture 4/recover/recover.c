@@ -24,6 +24,7 @@ int main(int argCount, char *p_argValues[])
         return 1;
     }
 
+
     FILE *p_inputImage = fopen(p_argValues[1], "rb");
 
     if (p_inputImage == NULL)
@@ -31,6 +32,7 @@ int main(int argCount, char *p_argValues[])
         printf("Couldn't open the file supplied.\n");
         return 1;
     }
+
 
     long eofPosition;
 
@@ -50,6 +52,7 @@ int main(int argCount, char *p_argValues[])
         return 1;
     }
 
+
     u_int fileCount = 0;
 
     while (ftell(p_inputImage) < eofPosition)
@@ -61,11 +64,13 @@ int main(int argCount, char *p_argValues[])
             break;
         }
 
+
         if (!ReadSignatureBytes(p_inputImage, &currentSignatureBytes))
         {
             fclose(p_inputImage);
             return 1;
         }
+
 
         if (IsJpegSignature(currentSignatureBytes))
         {
@@ -79,20 +84,24 @@ int main(int argCount, char *p_argValues[])
                 return 1;
             }
 
+
             if (!WriteFile(p_inputImage, recoveredJpegName, eofPosition))
             {
                 fclose(p_inputImage);
                 return 1;
             }
 
+
             fileCount++;
             continue;
         }
+
 
         if (ftell(p_inputImage) + (long) FILE_SYSTEM_BLOCK_SIZE >= eofPosition)
         {
             break;
         }
+
 
         if (!SkipFileBlock(p_inputImage, FILE_SYSTEM_BLOCK_SIZE))
         {
@@ -100,6 +109,7 @@ int main(int argCount, char *p_argValues[])
             return 1;
         }
     }
+
 
     fclose(p_inputImage);
     return 0;
@@ -123,11 +133,13 @@ long GetEofPosition(FILE *pointerToFile, long currentPosition)
         return -1;
     }
 
+
     if (fseek(pointerToFile, currentPosition, SEEK_SET) != 0)
     {
         printf("Couldn't set previous position.\n");
         return -1;
     }
+
 
     return eofPosition;
 }
@@ -136,6 +148,7 @@ bool ReadSignatureBytes(FILE *pointerToFile, u_char(*signatureBytes)[signatureBy
 {
     int signatureSize = signatureByteCount * sizeof(JPEG_SIGNATURE[0]);
     long currentPosition = ftell(pointerToFile);
+
 
     u_int readResult = fread(signatureBytes,
                              sizeof(JPEG_SIGNATURE[0]),
@@ -148,11 +161,13 @@ bool ReadSignatureBytes(FILE *pointerToFile, u_char(*signatureBytes)[signatureBy
         return false;
     }
 
+
     if (fseek(pointerToFile, 0 - signatureSize, SEEK_CUR) != 0)
     {
         printf("Couldn't reset position after reading signature.\n");
         return false;
     }
+
 
     return true;
 }
@@ -168,6 +183,7 @@ bool IsJpegSignature(u_char signatureBytes[4])
     {
         isFourthByteEqualsToSignature = true;
     }
+
 
     return isFirstByteEqualsToSignature
         && isSecondByteEqualsToSignature
@@ -185,6 +201,7 @@ bool WriteFile(FILE *pointerToFileToRead, char recoveredJpegName[8], long eofPos
         return false;
     }
 
+
     while (ftell(pointerToFileToRead) < eofPosition)
     {
         if (ftell(pointerToFileToRead) + (long) FILE_SYSTEM_BLOCK_SIZE > eofPosition)
@@ -192,11 +209,13 @@ bool WriteFile(FILE *pointerToFileToRead, char recoveredJpegName[8], long eofPos
             break;
         }
 
+
         if (!WriteFileBlock(pointerToFileToRead, p_recoveredJpeg, FILE_SYSTEM_BLOCK_SIZE))
         {
             fclose(p_recoveredJpeg);
             return false;
         }
+
 
         u_char currentSignatureBytes[signatureByteCount] = {0};
 
@@ -206,11 +225,13 @@ bool WriteFile(FILE *pointerToFileToRead, char recoveredJpegName[8], long eofPos
             return true;
         }
 
+
         if (!ReadSignatureBytes(pointerToFileToRead, &currentSignatureBytes))
         {
             fclose(p_recoveredJpeg);
             return false;
         }
+
 
         if (IsJpegSignature(currentSignatureBytes))
         {
@@ -218,6 +239,7 @@ bool WriteFile(FILE *pointerToFileToRead, char recoveredJpegName[8], long eofPos
             return true;
         }
     }
+
 
     fclose(p_recoveredJpeg);
     return true;
@@ -233,6 +255,7 @@ bool WriteFileBlock(FILE *pointerToFileToRead, FILE *pointerToFileToWrite, u_int
         return false;
     }
 
+
     u_int readResult = fread(blockSizedBuffer, blockSize, 1, pointerToFileToRead);
 
     if (readResult != 1)
@@ -240,9 +263,11 @@ bool WriteFileBlock(FILE *pointerToFileToRead, FILE *pointerToFileToWrite, u_int
         free(blockSizedBuffer);
         blockSizedBuffer = NULL;
 
+
         printf("Couldn't read block.\n");
         return false;
     }
+
 
     u_int writeResult = fwrite(blockSizedBuffer, blockSize, 1, pointerToFileToWrite);
 
@@ -251,12 +276,15 @@ bool WriteFileBlock(FILE *pointerToFileToRead, FILE *pointerToFileToWrite, u_int
         free(blockSizedBuffer);
         blockSizedBuffer = NULL;
 
+
         printf("Couldn't write block.\n");
         return false;
     }
 
+
     free(blockSizedBuffer);
     blockSizedBuffer = NULL;
+
 
     return true;
 }
@@ -271,6 +299,7 @@ bool SkipFileBlock(FILE *pointerToFileToRead, u_int blockSize)
         return false;
     }
 
+
     u_int readResult = fread(blockSizedBuffer, blockSize, 1, pointerToFileToRead);
 
     if (readResult != 1)
@@ -282,8 +311,10 @@ bool SkipFileBlock(FILE *pointerToFileToRead, u_int blockSize)
         return false;
     }
 
+
     free(blockSizedBuffer);
     blockSizedBuffer = NULL;
+
 
     return true;
 }
