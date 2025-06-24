@@ -78,9 +78,10 @@ int main(int argCount, char *p_argValues[])
 
             if (sprintf(recoveredJpegName, "%03d.jpg", fileCount) != 7)
             {
+                printf("Couldn't create file name for file %d", fileCount);
                 fclose(p_inputImage);
 
-                printf("Couldn't create file name for file %d", fileCount);
+
                 return 1;
             }
 
