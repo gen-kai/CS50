@@ -108,7 +108,7 @@ unsigned int hash(const char *word)
     u_int resultingHash = 0;
     char lowercaseWord[LENGTH + 1] = {0};
     u_int wordLength = strlen(word);
-    u_int(*wordParts[(LENGTH + 1) / wordPartLength]);
+    void(*wordParts[(LENGTH + 1) / wordPartLength]);
 
 
     for (u_int charIterator = 0; word[charIterator] != '\0'; charIterator++)
@@ -133,10 +133,10 @@ unsigned int hash(const char *word)
         {
             if ((wordPartsIterator / wordPartLength) == ((LENGTH + 1) / wordPartLength))
             {
-                resultingHash += 2153014U * (char) (*wordParts[wordPartsIterator / wordPartLength]);
+                resultingHash += 2153014U * (* (unsigned short *) wordParts[wordPartsIterator / wordPartLength]);
                 continue;
             }
-            resultingHash += 2153014U * (u_int) (*wordParts[wordPartsIterator / wordPartLength]);
+            resultingHash += 2153014U * (* (u_int *) wordParts[wordPartsIterator / wordPartLength]);
         }
     }
 
