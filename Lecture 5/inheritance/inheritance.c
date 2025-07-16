@@ -11,7 +11,11 @@ typedef struct person
     char alleles[2];
 } person;
 
+// ---------------------------------
+// My code starts here
 typedef unsigned int u_int;
+// My code ends here
+// ---------------------------------
 
 const int GENERATIONS = 3;
 const int INDENT_LENGTH = 4;
@@ -19,7 +23,11 @@ const int INDENT_LENGTH = 4;
 person *create_family(int generations);
 void print_family(person *p, int generation);
 void free_family(person *p);
+// ---------------------------------
+// My code starts here
 void AssignRandomAllelesBasedOnParents(person *pointerToPerson);
+// My code ends here
+// ---------------------------------
 char random_allele();
 
 int main(void)
@@ -40,13 +48,16 @@ int main(void)
 // Create a new individual with `generations`
 person* create_family(int generations)
 {
-    // TODO: Allocate memory for new person
+    // ---------------------------------
+    // My code starts here
     person *child = malloc(sizeof(person));
 
     if (child == NULL)
     {
         return NULL;
     }
+    // My code ends here
+    // ---------------------------------
 
     // If there are still generations left to create
     if (generations > 1)
@@ -55,34 +66,48 @@ person* create_family(int generations)
         person *parent0 = create_family(generations - 1);
         person *parent1 = create_family(generations - 1);
 
-        // TODO: Set parent pointers for current person
+        // ---------------------------------
+        // My code starts here
         child->parents[0] = parent0;
         child->parents[1] = parent1;
 
-        // TODO: Randomly assign current person's alleles based on the alleles of their parents
         AssignRandomAllelesBasedOnParents(child);
+        // My code ends here
+        // ---------------------------------
     }
 
     // If there are no generations left to create
     else
     {
-        // TODO: Set parent pointers to NULL
+        // ---------------------------------
+        // My code starts here
         child->parents[0] = NULL;
         child->parents[1] = NULL;
 
-        // TODO: Randomly assign alleles
         child->alleles[0] = random_allele();
         child->alleles[1] = random_allele();
+        // My code ends here
+        // ---------------------------------
     }
 
-    // TODO: Return newly created person
+    // ---------------------------------
+    // My code starts here
     return child;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Free `p` and all ancestors of `p`.
 void free_family(person *p)
 {
-    // TODO: Handle base case
+    // ---------------------------------
+    // My code starts here
+    if (p == NULL)
+    {
+        return;
+    }
+
+
     if (p->parents[0]->parents[0] == NULL && p->parents[1]->parents[1] == NULL)
     {
         free(p->parents[0]);
@@ -98,6 +123,8 @@ void free_family(person *p)
 
     free(p);
     p = NULL;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Print each family member and their alleles.
@@ -138,6 +165,8 @@ void print_family(person *p, int generation)
     print_family(p->parents[1], generation + 1);
 }
 
+// ---------------------------------
+// My code starts here
 void AssignRandomAllelesBasedOnParents(person *pointerToPerson)
 {
     u_int firstParentAllele, secondParentAllele;
@@ -157,6 +186,8 @@ void AssignRandomAllelesBasedOnParents(person *pointerToPerson)
     pointerToPerson->alleles[0] = pointerToPerson->parents[0]->alleles[firstParentAllele];
     pointerToPerson->alleles[1] = pointerToPerson->parents[1]->alleles[secondParentAllele];
 }
+// My code ends here
+// ---------------------------------
 
 // Randomly chooses a blood type allele.
 char random_allele()

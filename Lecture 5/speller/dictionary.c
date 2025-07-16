@@ -17,10 +17,14 @@ typedef struct node
     struct node *next;
 } node;
 
-// TODO: Choose number of buckets in hash table
+// Choose number of buckets in hash table
 const unsigned int N = 100000;
 
+// ---------------------------------
+// My code starts here
 const u_int wordPartLength = 4;
+// My code ends here
+// ---------------------------------
 
 // Hash table
 node *table[N];
