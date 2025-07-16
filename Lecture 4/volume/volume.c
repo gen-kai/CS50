@@ -41,8 +41,10 @@ int main(int argc, char *argv[])
 
     float factor = atof(argv[3]);
 
-    // Check file size
+    // ---------------------------------
+    // My code starts here
 
+    // Check file size
     u_int fileSize = getFileSize(input);
 
     // Copy header from input file to output file
@@ -73,6 +75,8 @@ int main(int argc, char *argv[])
         fclose(output);
         return 5;
     }
+    // My code ends here
+    // ---------------------------------
 
     // Close files
     fclose(input);

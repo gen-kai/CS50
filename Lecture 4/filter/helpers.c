@@ -3,10 +3,17 @@
 
 #include "helpers.h"
 
+// ---------------------------------
+// My code starts here
 typedef unsigned int u_int;
+// My code ends here
+// ---------------------------------
+
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
+    // ---------------------------------
+    // My code starts here
     for (u_int heightIterator = 0; heightIterator < height; heightIterator++)
     {
         for (u_int widthIterator = 0; widthIterator < width; widthIterator++)
@@ -21,11 +28,15 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     }
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    // ---------------------------------
+    // My code starts here
     RGBTRIPLE *resultingLine = calloc(1, width * sizeof(RGBTRIPLE));
     if (resultingLine == NULL)
     {
@@ -49,11 +60,15 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     resultingLine = NULL;
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+    // ---------------------------------
+    // My code starts here
     RGBTRIPLE(*resultingImage)[width] = calloc(height, width * sizeof(RGBTRIPLE));
     if (image == NULL)
     {
@@ -145,11 +160,15 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     resultingImage = NULL;
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Detect edges
 void edges(int height, int width, RGBTRIPLE image[height][width])
 {
+    // ---------------------------------
+    // My code starts here
     RGBTRIPLE(*resultingImage)[width] = calloc(height, width * sizeof(RGBTRIPLE));
     if (image == NULL)
     {
@@ -264,4 +283,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     resultingImage = NULL;
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
