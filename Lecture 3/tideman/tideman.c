@@ -31,12 +31,16 @@ bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
 void sort_pairs(void);
-bool isCurrentPreferenceStronger(int currentIndex, int maxStrengthIndex);
 void lock_pairs(void);
 void print_winner(void);
+// ---------------------------------
+// My code starts here
+bool isCurrentPreferenceStronger(int currentIndex, int maxStrengthIndex);
 bool DetectCycle(int pairIndex);
 bool ModifiedDepthFirstSearch(int currentVertex, bool *visitedVerites, bool *finishedVertices,
                               int edgeCount);
+// My code ends here
+// ---------------------------------
 
 int main(int argc, string argv[])
 {
@@ -104,6 +108,8 @@ int main(int argc, string argv[])
 // Update ranks given a new vote
 bool vote(int rank, string name, int ranks[])
 {
+    // ---------------------------------
+    // My code starts here
     for (int i = 0; i < candidate_count; i++)
     {
         if (strcmp(candidates[i], name) == 0)
@@ -115,11 +121,15 @@ bool vote(int rank, string name, int ranks[])
     }
 
     return false;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
+    // ---------------------------------
+    // My code starts here
     for (int i = 0; i < candidate_count - 1; i++)
     {
         for (int j = i + 1; j < candidate_count; j++)
@@ -127,11 +137,15 @@ void record_preferences(int ranks[])
     }
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Record pairs of candidates where one is preferred over the other
 void add_pairs(void)
 {
+    // ---------------------------------
+    // My code starts here
     pair_count = 0;
 
     for (int i = 0; i < candidate_count; i++)
@@ -149,11 +163,15 @@ void add_pairs(void)
     }
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
+    // ---------------------------------
+    // My code starts here
     for (int i = 0; i < pair_count - 1; i++)
         // pair_count - 1 because we are comparing element[i] with element[j] and j is i + 1
     {
@@ -179,8 +197,12 @@ void sort_pairs(void)
     }
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
+// ---------------------------------
+// My code starts here
 bool isCurrentPreferenceStronger(int currentIndex, int maxStrengthIndex)
 {
     int currentWinner = pairs[currentIndex].winner;
@@ -193,10 +215,14 @@ bool isCurrentPreferenceStronger(int currentIndex, int maxStrengthIndex)
 
     return currentPreference > maxStrengthPreference;
 }
+// My code ends here
+// ---------------------------------
 
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
+    // ---------------------------------
+    // My code starts here
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
@@ -215,8 +241,12 @@ void lock_pairs(void)
     }
 
     return;
+    // My code ends here
+    // ---------------------------------
 }
 
+// ---------------------------------
+// My code starts here
 bool DetectCycle(int pairIndex)
 {
     bool visitedVerites[MAX] = {false};
@@ -262,10 +292,14 @@ bool ModifiedDepthFirstSearch(int currentVertex, bool *visitedVerites, bool *fin
 
     return false;
 }
+// My code ends here
+// ---------------------------------
 
 // Print the winner of the election
 void print_winner(void)
 {
+    // ---------------------------------
+    // My code starts here
     bool electionWinners[MAX] = {false};
 
     for (int i = 0; i < pair_count; i++)
@@ -285,8 +319,7 @@ void print_winner(void)
             electionWinners[pairs[i].winner] = true;
         }
     }
-    // check the resulting graph and populate the array with the vertices that don't have
-    // in-neighbors
+    // check the resulting graph and populate the array with vertices that don't have in-neighbors
 
     for (int i = 0; i < candidate_count; i++)
     {
@@ -295,4 +328,6 @@ void print_winner(void)
             printf("%s\n", candidates[i]);
         }
     }
+    // My code ends here
+    // ---------------------------------
 }
